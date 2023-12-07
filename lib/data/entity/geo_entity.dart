@@ -6,22 +6,17 @@ import 'package:test_app/domain/models/geo_model.dart';
 class GeoEntity extends GeoModel {
   GeoEntity({required super.lat, required super.lng});
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'lat': lat,
       'lng': lng,
     };
   }
 
-  factory GeoEntity.fromMap(Map<String, dynamic> map) {
+  factory GeoEntity.fromJson(Map<String, dynamic> map) {
     return GeoEntity(
       lat: map['lat'] as String,
       lng: map['lng'] as String,
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory GeoEntity.fromJson(String source) =>
-      GeoEntity.fromMap(json.decode(source) as Map<String, dynamic>);
 }

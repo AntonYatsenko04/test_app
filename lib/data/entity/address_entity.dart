@@ -13,29 +13,24 @@ class AddressEntity extends AddressModel {
     required super.geo,
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     final geoEntity = geo as GeoEntity;
     return <String, dynamic>{
       'street': street,
       'suite': suite,
       'city': city,
       'zipcode': zipcode,
-      'geo': geoEntity.toMap(),
+      'geo': geoEntity.toJson(),
     };
   }
 
-  factory AddressEntity.fromMap(Map<String, dynamic> map) {
+  factory AddressEntity.fromJson(Map<String, dynamic> map) {
     return AddressEntity(
       street: map['street'] as String,
       suite: map['suite'] as String,
       city: map['city'] as String,
       zipcode: map['zipcode'] as String,
-      geo: GeoEntity.fromMap(map['geo'] as Map<String, dynamic>),
+      geo: GeoEntity.fromJson(map['geo'] as Map<String, dynamic>),
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory AddressEntity.fromJson(String source) =>
-      AddressEntity.fromMap(json.decode(source) as Map<String, dynamic>);
 }

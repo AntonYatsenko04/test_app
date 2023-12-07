@@ -17,7 +17,7 @@ class UserEntity extends UserModel {
     required super.company,
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     final addressEntity = address as AddressEntity;
     final companyEntity = company as CompanyEntity;
     return <String, dynamic>{
@@ -25,28 +25,23 @@ class UserEntity extends UserModel {
       'name': name,
       'username': username,
       'email': email,
-      'address': addressEntity.toMap(),
+      'address': addressEntity.toJson(),
       'phone': phone,
       'website': website,
-      'company': companyEntity.toMap(),
+      'company': companyEntity.toJson(),
     };
   }
 
-  factory UserEntity.fromMap(Map<String, dynamic> map) {
+  factory UserEntity.fromJson(Map<String, dynamic> map) {
     return UserEntity(
       id: map['id'] as int,
       name: map['name'] as String,
       username: map['username'] as String,
       email: map['email'] as String,
-      address: AddressEntity.fromMap(map['address'] as Map<String, dynamic>),
+      address: AddressEntity.fromJson(map['address'] as Map<String, dynamic>),
       phone: map['phone'] as String,
       website: map['website'] as String,
-      company: CompanyEntity.fromMap(map['company'] as Map<String, dynamic>),
+      company: CompanyEntity.fromJson(map['company'] as Map<String, dynamic>),
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory UserEntity.fromJson(String source) =>
-      UserEntity.fromMap(json.decode(source) as Map<String, dynamic>);
 }

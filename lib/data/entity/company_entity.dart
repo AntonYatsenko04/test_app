@@ -10,7 +10,7 @@ class CompanyEntity extends CompanyModel {
     required super.bs,
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'name': name,
       'catchPhrase': catchPhrase,
@@ -18,16 +18,11 @@ class CompanyEntity extends CompanyModel {
     };
   }
 
-  factory CompanyEntity.fromMap(Map<String, dynamic> map) {
+  factory CompanyEntity.fromJson(Map<String, dynamic> map) {
     return CompanyEntity(
       name: map['name'] as String,
       catchPhrase: map['catchPhrase'] as String,
       bs: map['bs'] as String,
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory CompanyEntity.fromJson(String source) =>
-      CompanyEntity.fromMap(json.decode(source) as Map<String, dynamic>);
 }
