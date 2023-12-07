@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 part 'geo_hive.g.dart';
 
 @HiveType(typeId: 0)
-class GeoHive {
+class GeoHive extends HiveObject {
   @HiveField(0)
   final String lat;
 
