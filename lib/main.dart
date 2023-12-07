@@ -1,6 +1,20 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-void main() {
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:test_app/domain/models/hive/company_hive.dart';
+import 'package:test_app/domain/models/hive/geo_hive.dart';
+
+import 'domain/models/hive/address_hive.dart';
+import 'domain/models/hive/user_hive.dart';
+
+void main() async {
+  Hive.init(Directory.current.path);
+  Hive
+    ..registerAdapter(GeoHiveAdapter())
+    ..registerAdapter(CompanyHiveAdapter())
+    ..registerAdapter(AddressHiveAdapter())
+    ..registerAdapter(UserHiveAdapter());
   runApp(const MainApp());
 }
 
