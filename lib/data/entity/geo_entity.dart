@@ -1,6 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
 import 'package:test_app/domain/models/geo_model.dart';
 
 class GeoEntity extends GeoModel {

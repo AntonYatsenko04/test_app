@@ -1,6 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
 import 'package:test_app/data/entity/address_entity.dart';
 import 'package:test_app/data/entity/company_entity.dart';
 import 'package:test_app/domain/models/user_model.dart';
