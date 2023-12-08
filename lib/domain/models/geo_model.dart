@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'hive/geo_hive.dart';
+
 class GeoModel {
   final String lat;
   final String lng;
@@ -30,4 +32,18 @@ class GeoModel {
 
   @override
   int get hashCode => lat.hashCode ^ lng.hashCode;
+
+  GeoHive toHive() {
+    return GeoHive(
+      lat: lat,
+      lng: lng,
+    );
+  }
+
+  factory GeoModel.fromHive(GeoHive geoHive) {
+    return GeoModel(
+      lat: geoHive.lat,
+      lng: geoHive.lng,
+    );
+  }
 }

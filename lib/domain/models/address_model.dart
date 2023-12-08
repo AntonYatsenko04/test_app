@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:test_app/domain/models/geo_model.dart';
 
+import 'hive/address_hive.dart';
+
 class AddressModel {
   final String street;
   final String suite;
@@ -55,5 +57,25 @@ class AddressModel {
         city.hashCode ^
         zipcode.hashCode ^
         geo.hashCode;
+  }
+
+  factory AddressModel.fromHive(AddressHive addressHive) {
+    return AddressModel(
+      street: addressHive.street,
+      suite: addressHive.suite,
+      city: addressHive.city,
+      zipcode: addressHive.zipcode,
+      geo: GeoModel.fromHive(addressHive.geo),
+    );
+  }
+
+  AddressHive toHive() {
+    return AddressHive(
+      street: street,
+      suite: suite,
+      city: city,
+      zipcode: zipcode,
+      geo: geo.toHive(),
+    );
   }
 }

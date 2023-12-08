@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'hive/company_hive.dart';
+
 class CompanyModel {
   final String name;
   final String catchPhrase;
@@ -37,4 +39,20 @@ class CompanyModel {
 
   @override
   int get hashCode => name.hashCode ^ catchPhrase.hashCode ^ bs.hashCode;
+
+  CompanyHive toHive() {
+    return CompanyHive(
+      name: name,
+      catchPhrase: catchPhrase,
+      bs: bs,
+    );
+  }
+
+  factory CompanyModel.fromHive(CompanyHive companyHive) {
+    return CompanyModel(
+      name: companyHive.name,
+      catchPhrase: companyHive.catchPhrase,
+      bs: companyHive.bs,
+    );
+  }
 }
