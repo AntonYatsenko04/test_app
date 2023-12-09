@@ -17,8 +17,8 @@ class UserRepositoryImpl implements UserRepository {
     try {
       final users = await _userClient.getAllUsers();
       final List<UserHive> usersHive = users.map((e) => e.toHive()).toList();
-      _userBox.clear();
-      _userBox.addAll(usersHive);
+      await _userBox.clear();
+      await _userBox.addAll(usersHive);
       return DataSuccess(users);
     } on DioException catch (e) {
       if (_userBox.values.isEmpty) {

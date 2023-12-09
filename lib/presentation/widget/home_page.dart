@@ -13,54 +13,102 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      body: BlocProvider(
-        create: (context) => GetIt.I<UserBloc>(),
-        child: BlocBuilder<UserBloc, UserState>(
+    final textTheme = Theme.of(context).textTheme;
+    return BlocProvider(
+      create: (context) => GetIt.I<UserBloc>(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Users",
+            style: textTheme.headlineLarge,
+          ),
+        ),
+        body: BlocBuilder<UserBloc, UserState>(
           builder: (context, state) {
             final userBloc = BlocProvider.of<UserBloc>(context);
             switch (state.status) {
               case UserStatus.initial:
                 {
                   userBloc.add(FetchUsersEvent());
-                  return const CircularProgressIndicator();
-                }
-              case UserStatus.loading:
-                {
-                  return const CircularProgressIndicator();
+                  return const Center(child: CircularProgressIndicator());
                 }
               case UserStatus.onlineSuccess:
                 {
-                  return _userCards(state.users);
+                  return _UserCards(
+                    users: state.users,
+                    isOnline: true,
+                  );
                 }
               case UserStatus.offlineSuccess:
                 {
-                  return _userCards(state.users);
+                  return _UserCards(
+                    users: state.users,
+                    isOnline: false,
+                  );
                 }
               case UserStatus.failure:
                 {
-                  return const Text("Error");
+                  return Center(
+                    child: TextButton(
+                        onPressed: () => userBloc.add(FetchUsersEvent()),
+                        child: Text(
+                          "Refresh page",
+                          style: textTheme.bodySmall,
+                        )),
+                  );
                 }
             }
           },
         ),
       ),
-    ));
+    );
   }
+}
 
-  _userCards(List<UserModel> users) {
-    return ListView.builder(
-        itemCount: users.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            child: Card(
-              child: Text(users[index].name),
-            ),
-            onTap: () {
-              AutoRouter.of(context).push(UserRoute(user: users[index]));
-            },
-          );
-        });
+class _UserCards extends StatelessWidget {
+  final List<UserModel> users;
+  final bool isOnline;
+  const _UserCards({required this.users, required this.isOnline, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: RefreshIndicator(
+        onRefresh: () {
+          BlocProvider.of<UserBloc>(context).add(FetchUsersEvent());
+          return Future(() => Duration.zero);
+        },
+        child: ListView.separated(
+          itemCount: users.length,
+          itemBuilder: (context, index) {
+            return Card(
+              color: Theme.of(context).cardColor,
+              clipBehavior: Clip.hardEdge,
+              child: InkWell(
+                enableFeedback: true,
+                splashColor: Colors.orange[500],
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 12, 10, 8),
+                  child: Text(
+                    users[index].name,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.headlineMedium,
+                  ),
+                ),
+                onTap: () async {
+                  await AutoRouter.of(context)
+                      .push(UserRoute(user: users[index]));
+                },
+              ),
+            );
+          },
+          separatorBuilder: (context, index) => const SizedBox(
+            height: 2,
+          ),
+        ),
+      ),
+    );
   }
 }
