@@ -2,7 +2,7 @@
 
 part of 'user_bloc.dart';
 
-enum UserStatus { initial, loading, onlineSuccess, offlineSuccess, failure }
+enum UserStatus { initial, onlineSuccess, offlineSuccess, failure }
 
 final class UserState extends Equatable {
   const UserState(

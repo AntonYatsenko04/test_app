@@ -15,7 +15,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   _onReloadEvent(event, emit) async {
-    emit(state.copyWith(status: UserStatus.loading));
     final usersDataState = await _getAllUsers();
     if (usersDataState is DataSuccess) {
       emit(state.copyWith(
