@@ -56,7 +56,7 @@ class UserPage extends StatelessWidget {
 class _Section extends StatelessWidget {
   final String boldText;
   final String thinText;
-  const _Section({super.key, required this.boldText, required this.thinText});
+  const _Section({required this.boldText, required this.thinText});
 
   @override
   Widget build(BuildContext context) {
