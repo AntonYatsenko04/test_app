@@ -6,7 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:test_app/core/router/app_router.dart';
 import 'package:test_app/domain/repository/user_repository.dart';
-import 'package:test_app/domain/requests/user_client.dart';
+
 import 'package:test_app/domain/usecase/get_all_users_use_case.dart';
 import 'package:test_app/presentation/bloc/bloc/user_bloc.dart';
 
@@ -15,6 +15,7 @@ import '../data/hive/company_hive.dart';
 import '../data/hive/geo_hive.dart';
 import '../data/hive/user_hive.dart';
 import '../data/repository/user_repository_impl.dart';
+import '../data/requests/user_client.dart';
 
 Future<void> setup() async {
   final sl = GetIt.I;

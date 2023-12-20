@@ -3,11 +3,11 @@ import 'package:hive/hive.dart';
 
 import 'package:test_app/core/data_state.dart';
 import 'package:test_app/data/mapper/user_mapper.dart';
-import 'package:test_app/domain/requests/user_client.dart';
 
 import '../hive/user_hive.dart';
 import '../../domain/models/user_model.dart';
 import '../../domain/repository/user_repository.dart';
+import '../requests/user_client.dart';
 
 class UserRepositoryImpl implements UserRepository {
   final UserClient _userClient;
