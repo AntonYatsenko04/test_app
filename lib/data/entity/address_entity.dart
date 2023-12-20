@@ -1,23 +1,27 @@
 import 'package:test_app/data/entity/geo_entity.dart';
-import 'package:test_app/domain/models/address_model.dart';
 
-class AddressEntity extends AddressModel {
+class AddressEntity {
+  final String street;
+  final String suite;
+  final String city;
+  final String zipcode;
+  final GeoEntity geo;
+
   const AddressEntity({
-    required super.street,
-    required super.suite,
-    required super.city,
-    required super.zipcode,
-    required super.geo,
+    required this.street,
+    required this.suite,
+    required this.city,
+    required this.zipcode,
+    required this.geo,
   });
 
   Map<String, dynamic> toJson() {
-    final geoEntity = geo as GeoEntity;
     return <String, dynamic>{
       'street': street,
       'suite': suite,
       'city': city,
       'zipcode': zipcode,
-      'geo': geoEntity.toJson(),
+      'geo': geo.toJson(),
     };
   }
 

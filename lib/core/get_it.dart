@@ -4,17 +4,18 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:test_app/core/router/app_router.dart';
 import 'package:test_app/domain/repository/user_repository.dart';
-import 'package:test_app/domain/requests/user_client.dart';
+
 import 'package:test_app/domain/usecase/get_all_users_use_case.dart';
 import 'package:test_app/presentation/bloc/bloc/user_bloc.dart';
 
-import '../domain/repository/user_repository_impl.dart';
-
-import 'package:test_app/domain/models/hive/company_hive.dart';
-import 'package:test_app/domain/models/hive/geo_hive.dart';
-import 'package:test_app/domain/models/hive/address_hive.dart';
-import 'package:test_app/domain/models/hive/user_hive.dart';
+import '../data/hive/address_hive.dart';
+import '../data/hive/company_hive.dart';
+import '../data/hive/geo_hive.dart';
+import '../data/hive/user_hive.dart';
+import '../data/repository/user_repository_impl.dart';
+import '../data/requests/user_client.dart';
 
 Future<void> setup() async {
   final sl = GetIt.I;
@@ -31,14 +32,16 @@ Future<void> setup() async {
     receiveTimeout: const Duration(seconds: 3),
   );
   sl.registerSingleton<Dio>(Dio(options));
-
+  sl.registerSingleton<AppRouter>(AppRouter());
   sl.registerSingleton<Box<UserHive>>(await Hive.openBox<UserHive>('userBox'));
 
-  sl.registerSingleton<UserClient>(UserClient(sl()));
+  sl.registerSingleton<UserClient>(UserClient(sl<Dio>()));
 
-  sl.registerSingleton<UserRepository>(UserRepositoryImpl(sl(), sl()));
+  sl.registerSingleton<UserRepository>(
+      UserRepositoryImpl(sl<UserClient>(), sl<Box<UserHive>>()));
 
-  sl.registerSingleton<GetAllUsersUseCase>(GetAllUsersUseCase(sl()));
+  sl.registerSingleton<GetAllUsersUseCase>(
+      GetAllUsersUseCase(sl<UserRepository>()));
 
-  sl.registerFactory<UserBloc>(() => UserBloc(sl()));
+  sl.registerFactory<UserBloc>(() => UserBloc(sl<GetAllUsersUseCase>()));
 }

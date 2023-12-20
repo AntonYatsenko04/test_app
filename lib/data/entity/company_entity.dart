@@ -1,10 +1,12 @@
-import 'package:test_app/domain/models/company_model.dart';
+class CompanyEntity {
+  final String name;
+  final String catchPhrase;
+  final String bs;
 
-class CompanyEntity extends CompanyModel {
-  CompanyEntity({
-    required super.name,
-    required super.catchPhrase,
-    required super.bs,
+  const CompanyEntity({
+    required this.name,
+    required this.catchPhrase,
+    required this.bs,
   });
 
   Map<String, dynamic> toJson() {

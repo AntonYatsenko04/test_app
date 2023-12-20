@@ -1,7 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 
-import '../../domain/models/user_model.dart';
+import '../../../domain/models/user_model.dart';
+import 'section.dart';
 
 @RoutePage()
 class UserPage extends StatelessWidget {
@@ -38,43 +39,17 @@ class UserPage extends StatelessWidget {
               const SizedBox(
                 height: 40,
               ),
-              _Section(boldText: 'Email:', thinText: user.email),
-              _Section(
+              Section(boldText: 'Email:', thinText: user.email),
+              Section(
                   boldText: 'Address:',
                   thinText:
                       '${user.address.city}, ${user.address.street}, ${user.address.suite}'),
-              _Section(boldText: 'Phone:', thinText: user.phone),
-              _Section(boldText: 'Company:', thinText: user.company.name),
+              Section(boldText: 'Phone:', thinText: user.phone),
+              Section(boldText: 'Company:', thinText: user.company.name),
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-class _Section extends StatelessWidget {
-  final String boldText;
-  final String thinText;
-  const _Section({required this.boldText, required this.thinText});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context).textTheme;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          boldText,
-        ),
-        Text(
-          thinText,
-          style: theme.bodySmall,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-      ],
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:test_app/core/app_themes.dart';
 import 'package:test_app/core/get_it.dart';
 import 'package:test_app/core/router/app_router.dart';
@@ -10,7 +11,7 @@ void main() async {
 }
 
 class MainApp extends StatelessWidget {
-  final router = AppRouter();
+  final router = GetIt.I<AppRouter>();
   MainApp({super.key});
 
   @override
