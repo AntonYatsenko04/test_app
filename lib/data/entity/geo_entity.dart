@@ -1,7 +1,11 @@
-import 'package:test_app/domain/models/geo_model.dart';
+class GeoEntity {
+  final String lat;
+  final String lng;
 
-class GeoEntity extends GeoModel {
-  GeoEntity({required super.lat, required super.lng});
+  const GeoEntity({
+    required this.lat,
+    required this.lng,
+  });
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
